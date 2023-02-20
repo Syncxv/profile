@@ -1,6 +1,8 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@theatre/core': ^0.6.0
+  '@theatre/studio': ^0.6.0
   '@types/three': ^0.149.0
   autoprefixer: ^10.4.13
   postcss: ^8.4.21
@@ -13,6 +15,8 @@ specifiers:
   vite-plugin-solid: ^2.5.0
 
 dependencies:
+  '@theatre/core': 0.6.0
+  '@theatre/studio': 0.6.0_@theatre+core@0.6.0
   sass: 1.58.3
   solid-js: 1.6.10
   three: 0.149.0
@@ -600,6 +604,27 @@ packages:
       fastq: 1.14.0
     dev: true
 
+  /@theatre/core/0.6.0:
+    resolution: {integrity: sha512-HyOoEQapeVbgKBBVfv1rjklN8oAY1/6RZuzntdL9Nfqb5UVzyVR0Im9q4WBPHx6d1dB1BKpAwIw6PzqlKoyehA==}
+    dependencies:
+      '@theatre/dataverse': 0.6.0
+    dev: false
+
+  /@theatre/dataverse/0.6.0:
+    resolution: {integrity: sha512-1W7b8bQTZeRmmrY64HTQzEtjLJWBmdOkfK/liR+LSSjgAylY3CjZ4/vaDUMmRQr4zCeQjyNVmrvwaIZ/33s+tQ==}
+    dependencies:
+      lodash-es: 4.17.21
+    dev: false
+
+  /@theatre/studio/0.6.0_@theatre+core@0.6.0:
+    resolution: {integrity: sha512-DH53wWSkIDevbYJUybLH5nIx+rFgiWlykYOmDKC9WK9QUQFYRpnaBu4UNIo+RmGZ+I2ZMSHx1RfrfnBJCr1j6A==}
+    peerDependencies:
+      '@theatre/core': '*'
+    dependencies:
+      '@theatre/core': 0.6.0
+      '@theatre/dataverse': 0.6.0
+    dev: false
+
   /@types/three/0.149.0:
     resolution: {integrity: sha512-fgNBm9LWc65ER/W0cvoXdC0iMy7Ke9e2CONmEr6Jt8sDSY3sw4DgOubZfmdZ747dkPhbQrgRQAWwDEr2S/7IEg==}
     dependencies:
@@ -973,6 +998,10 @@ packages:
     resolution: {integrity: sha512-9JROoBW7pobfsx+Sq2JsASvCo6Pfo6WWoUW79HuB1BCoBXD4PLWJPqDF6fNj67pqBYTbAHkE57M1kS/+L1neOg==}
     engines: {node: '>=10'}
     dev: true
+
+  /lodash-es/4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+    dev: false
 
   /lru-cache/5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}

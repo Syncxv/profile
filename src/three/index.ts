@@ -45,7 +45,7 @@ function animate() {
 export const init = () => {
 	animate()
 	camera.updateProjectionMatrix()
-	camera.position.setZ(4)
+	camera.position.set(0, 185, 0)
 	renderer.setSize(getWidth(), getHeight())
 	container.appendChild(renderer.domElement)
 }
