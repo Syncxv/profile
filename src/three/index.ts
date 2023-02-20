@@ -2,8 +2,8 @@ import { createSignal } from 'solid-js'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
-export const [animateCallbacks, setAnimateCallbacks] = createSignal([])
-export const [resizeCallbacks, setResizeCallbacks] = createSignal([])
+export const [animateCallbacks, setAnimateCallbacks] = createSignal<(() => void)[]>([])
+export const [resizeCallbacks, setResizeCallbacks] = createSignal<(() => void)[]>([])
 
 //Container stuff
 export const container = document.querySelector('.three-container')!
