@@ -15,7 +15,7 @@ export const mouse = new THREE.Vector2()
 export const scene = new THREE.Scene()
 export const clock = new THREE.Clock()
 
-export const camera = new THREE.PerspectiveCamera(36, getWidth() / getHeight(), 0.1, 1000)
+export const camera = new THREE.PerspectiveCamera(36, getWidth() / getHeight(), 0.1, 10000)
 
 export const renderer = new THREE.WebGLRenderer({
 	antialias: true,

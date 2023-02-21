@@ -1,12 +1,13 @@
-import { defineConfig } from 'vite';
-import solidPlugin from 'vite-plugin-solid';
+import { defineConfig } from 'vite'
+import solidPlugin from 'vite-plugin-solid'
+import { glslify } from 'vite-plugin-glslify'
 
 export default defineConfig({
-  plugins: [solidPlugin()],
-  server: {
-    port: 3000,
-  },
-  build: {
-    target: 'esnext',
-  },
-});
+	plugins: [solidPlugin(), glslify()],
+	server: {
+		port: 3000
+	},
+	build: {
+		target: 'esnext'
+	}
+})
