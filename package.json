@@ -24,6 +24,7 @@
     "@theatre/studio": "^0.6.0",
     "sass": "^1.58.3",
     "solid-js": "^1.6.10",
-    "three": "^0.149.0"
+    "three": "^0.149.0",
+    "glsl-noise": "^0.0.0"
   }
 }

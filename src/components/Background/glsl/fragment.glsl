@@ -1,10 +1,7 @@
-uniform sampler2D uTexture;
-
-
 varying vec2 vUv;
+varying float vNoise;
 varying vec3 vNormal;
 void main() {
-    vec4 image = texture(uTexture, vUv);
 
-    gl_FragColor = image;
+    gl_FragColor = vec4(vNoise, .0, .0,  1.);
 }

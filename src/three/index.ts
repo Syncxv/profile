@@ -43,6 +43,7 @@ function animate() {
 }
 
 export const init = () => {
+	clock.start()
 	animate()
 	camera.updateProjectionMatrix()
 	camera.position.set(0, 185, 0)
