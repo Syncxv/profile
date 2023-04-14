@@ -1,5 +1,3 @@
-import * as THREE from 'three'
-
 // import studio from '@theatre/studio'
 import '@theatre/core'
 import { getProject, types } from '@theatre/core'
@@ -11,8 +9,7 @@ console.log(state)
 export const project = getProject('THREE.js x Theatre.js', { state: state })
 export const sheet = project.sheet('Animated scene')
 export const initTheater = () => {
-	// if (!shouldRenderStudio) return
-	// studio.initialize()
+	// if (false) studio.initialize()
 
 	const cameraObj = sheet.object('Camera', {
 		rotation: types.compound({
