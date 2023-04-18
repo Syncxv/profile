@@ -27,15 +27,14 @@ export const Background: Component = () => {
 		const positionAttribute = geometry.getAttribute('position') as THREE.BufferAttribute
 		const vertex = new THREE.Vector3()
 
-		const index = geometry.getIndex()
-
-		const faceIds = []
-
-		for (let i = 0, faceId = 0; i < index!.count; i += 6, faceId++) {
-			faceIds.push(faceId, faceId, faceId)
+		// create a buffer attribute for faceIds
+		const faceIds = new Uint32Array(geometry.index!.count)
+		for (let i = 0; i < faceIds.length; i++) {
+			faceIds[i] = i
 		}
 
-		geometry.setAttribute('faceId', new THREE.BufferAttribute(new Uint32Array(faceIds), 1))
+		const faceIdAttribute = new THREE.BufferAttribute(faceIds, 1)
+		geometry.setAttribute('faceId', faceIdAttribute)
 
 		for (let i = 0; i < positionAttribute.count; i++) {
 			vertex.fromBufferAttribute(positionAttribute, i)
@@ -76,12 +75,17 @@ export const Background: Component = () => {
 				raycaster.setFromCamera(mouse, camera)
 				const intersects = raycaster.intersectObject<THREE.Mesh>(plane)
 				if (intersects.length > 0) {
+					const face = intersects[0].face!
 					const faceIndex = intersects[0].faceIndex!
-					material.uniforms.hoveredFaceId.value = faceIndex
+
+					if (face.normal.z < 0) {
+						material.uniforms.hoveredFaceId.value = faceIndex * 2
+					} else {
+						material.uniforms.hoveredFaceId.value = faceIndex * 2 + 1
+					}
 					console.log(faceIndex)
 				} else {
 					material.uniforms.hoveredFaceId.value = -1
-					console.log('no face')
 				}
 
 				material.uniforms.time.value = clock.getElapsedTime()
