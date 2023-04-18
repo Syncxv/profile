@@ -16,7 +16,8 @@ export const Background: Component = () => {
 			uniforms: {
 				uTexture: { value: new THREE.TextureLoader().load('/debug-texture.jpg') },
 				time: { value: 0 },
-				edgeThreshold: { value: 0.01 }
+				edgeThreshold: { value: 0.01 },
+				coolPos: { value: new THREE.Vector3(0, 0, 0) }
 			},
 			vertexShader,
 			fragmentShader
@@ -47,6 +48,20 @@ export const Background: Component = () => {
 		scene.add(plane)
 
 		clock.start()
+
+		// mouse move raycast
+		const raycaster = new THREE.Raycaster()
+		const mouse = new THREE.Vector2()
+		const handleMouseMove = (e: MouseEvent) => {
+			mouse.x = (e.clientX / window.innerWidth) * 2 - 1
+			mouse.y = -(e.clientY / window.innerHeight) * 2 + 1
+			raycaster.setFromCamera(mouse, camera)
+			const intersects = raycaster.intersectObject(plane)
+			if (intersects.length > 0) {
+				material.uniforms.coolPos.value = intersects[0].point
+			}
+		}
+		window.addEventListener('mousemove', handleMouseMove)
 
 		setAnimateCallbacks((prev) => [
 			...prev,
