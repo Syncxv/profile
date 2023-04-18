@@ -18,24 +18,16 @@ export const Background: Component = () => {
 				time: { value: 0 },
 				edgeThreshold: { value: 0.01 },
 				faceIndices: { value: new THREE.Vector3(-1, -1, -1) },
-				hoveredFaceId: { value: -1000000 }
+				hoveredFaceId: { value: -1000000 },
+				mousePos: { value: new THREE.Vector2(0, 0) }
 			},
 			vertexShader: vertexShader,
 			fragmentShader
 		})
-		const geometry = new THREE.PlaneGeometry(1000, 1000, 10, 10)
+		const geometry = new THREE.PlaneGeometry(1000, 1000, 40, 40)
 		const positionAttribute = geometry.getAttribute('position') as THREE.BufferAttribute
+
 		const vertex = new THREE.Vector3()
-
-		// create a buffer attribute for faceIds
-		const faceIds = new Uint32Array(geometry.index!.count)
-		for (let i = 0; i < faceIds.length; i++) {
-			faceIds[i] = i
-		}
-
-		const faceIdAttribute = new THREE.BufferAttribute(faceIds, 1)
-		geometry.setAttribute('faceId', faceIdAttribute)
-
 		for (let i = 0; i < positionAttribute.count; i++) {
 			vertex.fromBufferAttribute(positionAttribute, i)
 
@@ -65,6 +57,7 @@ export const Background: Component = () => {
 		const handleMouseMove = (e: MouseEvent) => {
 			mouse.x = (e.clientX / window.innerWidth) * 2 - 1
 			mouse.y = -(e.clientY / window.innerHeight) * 2 + 1
+			material.uniforms.mousePos.value.set(mouse.x, mouse.y)
 		}
 
 		window.addEventListener('mousemove', handleMouseMove)
@@ -72,21 +65,19 @@ export const Background: Component = () => {
 		setAnimateCallbacks((prev) => [
 			...prev,
 			() => {
-				raycaster.setFromCamera(mouse, camera)
-				const intersects = raycaster.intersectObject<THREE.Mesh>(plane)
-				if (intersects.length > 0) {
-					const face = intersects[0].face!
-					const faceIndex = intersects[0].faceIndex!
-
-					if (face.normal.z < 0) {
-						material.uniforms.hoveredFaceId.value = faceIndex * 2
-					} else {
-						material.uniforms.hoveredFaceId.value = faceIndex * 2 + 1
-					}
-					console.log(faceIndex)
-				} else {
-					material.uniforms.hoveredFaceId.value = -1
-				}
+				// raycaster.setFromCamera(mouse, camera)
+				// const intersects = raycaster.intersectObject<THREE.Mesh>(plane)
+				// if (intersects.length > 0) {
+				// 	const face = intersects[0].face!
+				// 	const faceIndex = intersects[0].faceIndex!
+				// 	material.uniforms.hoveredFaceId.value = faceIndex
+				// 	console.log(
+				// 		faceIndex,
+				// 		(geometry.attributes.faceId as THREE.BufferAttribute).array[faceIndex]
+				// 	)
+				// } else {
+				// 	material.uniforms.hoveredFaceId.value = -1
+				// }
 
 				material.uniforms.time.value = clock.getElapsedTime()
 			}
