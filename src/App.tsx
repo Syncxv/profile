@@ -23,7 +23,7 @@ const App: Component = () => {
 	}
 	return (
 		<>
-			<div class="relative flex items-center justify-center w-screen h-screen z-2">
+			<div class="relative flex items-center justify-center w-screen h-0 z-2">
 				<button
 					type="button"
 					class="px-12 py-3 bg-slate-200 rounded-md text-slate-800"
