@@ -1,12 +1,13 @@
 attribute vec3 barycentric;
 attribute uint faceId;
 uniform float time;
-varying float vFaceId;
 varying vec2 vUv;
 varying vec3 finalPos;
 varying vec3 vPosition;
 varying vec3 vBarycentric;
 varying vec3 vNormal;
+
+flat out uint vFaceId;
 
 float frequency1 = 0.5;
 float frequency2 = 0.9;
@@ -31,7 +32,7 @@ void main() {
   vPosition = position;
   vBarycentric = barycentric;
   vNormal = normal;
-  vFaceId = float(faceId);
+  vFaceId = faceId;
   vec3 newPosition = position;
   newPosition.z = calculateSurface(position.y, position.x) + position.z;
   finalPos = newPosition;

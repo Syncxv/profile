@@ -29,11 +29,11 @@ export const Background: Component = () => {
 
 		const faceIds = []
 
-		for (let i = 0; i < geometry.attributes.position.count / 3; i++) {
+		for (let i = 0; i < (geometry.attributes.position.count / 3) * 2; i++) {
 			faceIds.push(i, i, i)
 		}
 
-		geometry.setAttribute('faceId', new THREE.BufferAttribute(new Uint32Array(faceIds), 1))
+		geometry.setAttribute('faceId', new THREE.BufferAttribute(new Uint32Array(faceIds), 2))
 
 		for (let i = 0; i < positionAttribute.count; i++) {
 			vertex.fromBufferAttribute(positionAttribute, i)
