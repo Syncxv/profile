@@ -1,5 +1,9 @@
 uniform float edgeThreshold;
 uniform vec3 coolPos;
+uniform vec3 faceIndices;
+uniform float hoveredFaceId;
+
+varying float vFaceId;
 varying vec3 finalPos;
 varying vec3 vPosition;
 varying vec3 vBarycentric;
@@ -17,10 +21,8 @@ void main() {
   bool isEdge =
       xDiff < edgeThreshold || yDiff < edgeThreshold || zDiff < edgeThreshold;
 
-  if (vPosition.x <= coolPos.x && vPosition.x <= coolPos.x) {
-    faceColor = vec3(1., 0.0, 0.0);
-    return;
+  if (vFaceId == hoveredFaceId) {
+    faceColor = vec3(1.0, 0.0, 0.0);
   }
-
-  gl_FragColor = isEdge ? vec4(edgeColor, 1.0) : vec4(faceColor, 0.0);
+  gl_FragColor = isEdge ? vec4(edgeColor, 1.0) : vec4(faceColor, 1.0);
 }

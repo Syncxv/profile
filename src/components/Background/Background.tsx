@@ -17,14 +17,23 @@ export const Background: Component = () => {
 				uTexture: { value: new THREE.TextureLoader().load('/debug-texture.jpg') },
 				time: { value: 0 },
 				edgeThreshold: { value: 0.01 },
-				coolPos: { value: new THREE.Vector3(0, 0, 0) }
+				faceIndices: { value: new THREE.Vector3(-1, -1, -1) },
+				hoveredFaceId: { value: -1000000 }
 			},
-			vertexShader,
+			vertexShader: vertexShader,
 			fragmentShader
 		})
 		const geometry = new THREE.PlaneGeometry(1000, 1000, 10, 10)
 		const positionAttribute = geometry.getAttribute('position') as THREE.BufferAttribute
 		const vertex = new THREE.Vector3()
+
+		const faceIds = []
+
+		for (let i = 0; i < geometry.attributes.position.count / 3; i++) {
+			faceIds.push(i, i, i)
+		}
+
+		geometry.setAttribute('faceId', new THREE.BufferAttribute(new Uint32Array(faceIds), 1))
 
 		for (let i = 0; i < positionAttribute.count; i++) {
 			vertex.fromBufferAttribute(positionAttribute, i)
@@ -55,18 +64,24 @@ export const Background: Component = () => {
 		const handleMouseMove = (e: MouseEvent) => {
 			mouse.x = (e.clientX / window.innerWidth) * 2 - 1
 			mouse.y = -(e.clientY / window.innerHeight) * 2 + 1
-			raycaster.setFromCamera(mouse, camera)
-			const intersects = raycaster.intersectObject(plane)
-			if (intersects.length > 0) {
-				material.uniforms.coolPos.value = intersects[0].point
-			}
 		}
+
 		window.addEventListener('mousemove', handleMouseMove)
 
 		setAnimateCallbacks((prev) => [
 			...prev,
 			() => {
-				console.log('hi', clock.getElapsedTime())
+				raycaster.setFromCamera(mouse, camera)
+				const intersects = raycaster.intersectObject<THREE.Mesh>(plane)
+				if (intersects.length > 0) {
+					const faceIndex = intersects[0].faceIndex!
+					material.uniforms.hoveredFaceId.value = faceIndex
+					console.log(faceIndex)
+				} else {
+					material.uniforms.hoveredFaceId.value = -1
+					console.log('no face')
+				}
+
 				material.uniforms.time.value = clock.getElapsedTime()
 			}
 		])

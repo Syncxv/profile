@@ -1,5 +1,7 @@
 attribute vec3 barycentric;
+attribute uint faceId;
 uniform float time;
+varying float vFaceId;
 varying vec2 vUv;
 varying vec3 finalPos;
 varying vec3 vPosition;
@@ -29,6 +31,7 @@ void main() {
   vPosition = position;
   vBarycentric = barycentric;
   vNormal = normal;
+  vFaceId = float(faceId);
   vec3 newPosition = position;
   newPosition.z = calculateSurface(position.y, position.x) + position.z;
   finalPos = newPosition;
