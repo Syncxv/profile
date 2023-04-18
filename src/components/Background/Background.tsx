@@ -1,15 +1,17 @@
-import { Component, onMount } from 'solid-js'
+import { Component, onCleanup, onMount } from 'solid-js'
 import * as THREE from 'three'
 import { scene, setAnimateCallbacks } from '../../three'
 import { camera } from '../../three/index'
 
 import vertexShader from './glsl/vertex.glsl'
 import fragmentShader from './glsl/fragment.glsl'
+
+let g_Plane: THREE.Mesh
 export const Background: Component = () => {
 	onMount(() => {
 		const clock = new THREE.Clock()
 		const material = new THREE.ShaderMaterial({
-			// wireframe: true,
+			wireframe: true,
 			uniforms: {
 				uTexture: { value: new THREE.TextureLoader().load('/debug-texture.jpg') },
 				time: { value: 0 }
@@ -27,7 +29,7 @@ export const Background: Component = () => {
 			// Apply your randomization logic here, for example:
 			vertex.x += (Math.random() - 0.5) * 4
 			vertex.y += (Math.random() - 0.5) * 4
-			vertex.z += (Math.random() - 0.5) * 4
+			vertex.z += (Math.random() - 0.5) * 50
 
 			// Update the position attribute with the modified vertex
 			positionAttribute.setXYZ(i, vertex.x, vertex.y, vertex.z)
@@ -37,6 +39,7 @@ export const Background: Component = () => {
 		const plane = new THREE.Mesh(geometry, material)
 		plane.rotateX(-Math.PI / 2)
 		plane.position.set(0, 0, -220)
+		g_Plane = plane
 		scene.add(plane)
 
 		clock.start()
@@ -49,5 +52,11 @@ export const Background: Component = () => {
 			}
 		])
 	})
+
+	onCleanup(() => {
+		// clean up code here
+		scene.remove(g_Plane)
+	})
+
 	return <></>
 }
