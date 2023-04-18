@@ -1,7 +1,10 @@
+attribute vec3 barycentric;
 uniform float time;
 varying vec2 vUv;
-varying float finalPos;
+varying vec3 finalPos;
 varying vec3 vPosition;
+varying vec3 vBarycentric;
+varying vec3 vNormal;
 
 float frequency1 = 0.5;
 float frequency2 = 0.9;
@@ -24,8 +27,10 @@ float calculateSurface(float x, float z) {
 void main() {
   vUv = uv;
   vPosition = position;
+  vBarycentric = barycentric;
+  vNormal = normal;
   vec3 newPosition = position;
-  finalPos = calculateSurface(position.y, position.x);
-  newPosition.z = finalPos + position.z;
+  newPosition.z = calculateSurface(position.y, position.x) + position.z;
+  finalPos = newPosition;
   gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
 }
