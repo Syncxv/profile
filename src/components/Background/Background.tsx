@@ -27,13 +27,15 @@ export const Background: Component = () => {
 		const positionAttribute = geometry.getAttribute('position') as THREE.BufferAttribute
 		const vertex = new THREE.Vector3()
 
+		const index = geometry.getIndex()
+
 		const faceIds = []
 
-		for (let i = 0; i < (geometry.attributes.position.count / 3) * 2; i++) {
-			faceIds.push(i, i, i)
+		for (let i = 0, faceId = 0; i < index!.count; i += 6, faceId++) {
+			faceIds.push(faceId, faceId, faceId)
 		}
 
-		geometry.setAttribute('faceId', new THREE.BufferAttribute(new Uint32Array(faceIds), 2))
+		geometry.setAttribute('faceId', new THREE.BufferAttribute(new Uint32Array(faceIds), 1))
 
 		for (let i = 0; i < positionAttribute.count; i++) {
 			vertex.fromBufferAttribute(positionAttribute, i)

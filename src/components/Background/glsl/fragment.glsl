@@ -22,10 +22,15 @@ void main() {
   bool isEdge =
       xDiff < edgeThreshold || yDiff < edgeThreshold || zDiff < edgeThreshold;
 
-  if (int(vFaceId) % 2 != 0 && int(vFaceId) == hoveredFaceId &&
-      hoveredFaceId >= 0) { // Add condition for hoveredFaceId >= 0
-    faceColor = vec3(1.0, 0.0, 0.0);
+  if (int(vFaceId) == hoveredFaceId / 2 && hoveredFaceId >= 0) {
+    bool isTriangleOne = vBarycentric.x > vBarycentric.y;
+    if (isTriangleOne && hoveredFaceId % 2 == 0) {
+      faceColor = vec3(1.0, 0.0, 0.0);
+    } else if (!isTriangleOne && hoveredFaceId % 2 == 1) {
+      faceColor = vec3(1.0, 0.0, 0.0);
+    }
   }
+
   gl_FragColor = isEdge ? vec4(edgeColor, 1.0) : vec4(faceColor, 1.0);
-  //   gl_FragColor = vec4(float(vFaceId) / 255.0);
+  //   gl_FragColor = vec4((float(vFaceId) + 50.) / 255.0);
 }
