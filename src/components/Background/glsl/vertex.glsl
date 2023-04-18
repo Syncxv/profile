@@ -1,6 +1,7 @@
 uniform float time;
 varying vec2 vUv;
 varying float finalPos;
+varying vec3 vPosition;
 
 float frequency1 = 0.5;
 float frequency2 = 0.9;
@@ -22,6 +23,7 @@ float calculateSurface(float x, float z) {
 
 void main() {
   vUv = uv;
+  vPosition = position;
   vec3 newPosition = position;
   finalPos = calculateSurface(position.y, position.x);
   newPosition.z = finalPos + position.z;

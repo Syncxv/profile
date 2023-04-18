@@ -11,10 +11,11 @@ export const Background: Component = () => {
 	onMount(() => {
 		const clock = new THREE.Clock()
 		const material = new THREE.ShaderMaterial({
-			wireframe: true,
+			// wireframe: true,
 			uniforms: {
 				uTexture: { value: new THREE.TextureLoader().load('/debug-texture.jpg') },
-				time: { value: 0 }
+				time: { value: 0 },
+				edgeThreshold: { value: 0.2 }
 			},
 			vertexShader,
 			fragmentShader
@@ -28,7 +29,7 @@ export const Background: Component = () => {
 
 			// Apply your randomization logic here, for example:
 			vertex.x += (Math.random() - 0.5) * 4
-			vertex.y += (Math.random() - 0.5) * 4
+			vertex.y += (Math.random() - 0.5) * 3
 			vertex.z += (Math.random() - 0.5) * 50
 
 			// Update the position attribute with the modified vertex
