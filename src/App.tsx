@@ -23,10 +23,10 @@ const App: Component = () => {
 	}
 	return (
 		<>
-			<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+			<div class="relative flex items-center justify-center w-screen h-screen z-2">
 				<button
 					type="button"
-					class="absolute top-0 px-12 py-3 bg-slate-200 rounded-md text-slate-800"
+					class="px-12 py-3 bg-slate-200 rounded-md text-slate-800"
 					onClick={handleClick}
 				>
 					Contact

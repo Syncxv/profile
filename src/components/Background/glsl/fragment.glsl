@@ -1,3 +1,5 @@
 varying vec2 vUv;
-
-void main() { gl_FragColor = vec4(vUv, 0.0, 1.0); }
+varying float finalPos;
+void main() {
+  gl_FragColor = vec4(finalPos * 0.2, vUv - (finalPos + 0.5), 1.0);
+}
