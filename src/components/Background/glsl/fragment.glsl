@@ -13,7 +13,7 @@ varying float vFaceId;
 void main() {
   vec3 edgeColor = vec3(.0, .0, .1);
   float cool = vUv.y - (finalPos.z * 0.7);
-  vec3 faceColor = mix(vec3(cool * 3., 0.5, 1.0), vec3(0.0, 0.0, 1.0), .99);
+  vec3 faceColor = mix(vec3(cool * 3., 0.5, 1.0), vec3(0.0, 0.0, 1.0), .98);
 
   float xDiff = abs(vBarycentric.x + floor(vBarycentric.x + 0.5));
   float yDiff = abs(vBarycentric.y + floor(vBarycentric.y + 0.5));
