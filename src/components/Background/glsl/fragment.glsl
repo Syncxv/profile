@@ -10,6 +10,11 @@ varying vec3 vBarycentric;
 varying vec2 vUv;
 varying float vFaceId;
 
+vec3 indexToColor(float index) {
+  float normalizedIndex = index / 255.0; // Assuming you have at most 256 faces
+  return vec3(normalizedIndex, 0.0, 1.0 - normalizedIndex);
+}
+
 void main() {
   vec3 edgeColor = vec3(.0, .0, .1);
   float cool = vUv.y - (finalPos.z * 0.7);
@@ -22,14 +27,20 @@ void main() {
   bool isEdge =
       xDiff < edgeThreshold || yDiff < edgeThreshold || zDiff < edgeThreshold;
 
-  int faceId = int(floor(vUv.y * divisions.y) * divisions.x * 2.0 +
-                   floor(vUv.x * divisions.x) * 2.0);
-  if (fract(vUv.x * divisions.x) > 0.5) {
-    faceId += 1;
+  float faceIndex = float(int(floor(vUv.y * divisions.y) * divisions.x * 2.0 +
+                              floor(vUv.x * divisions.x) * 2.0));
+  if (fract(vUv.x * divisions.x) > fract(vUv.y * divisions.y)) {
+    faceIndex += 1.0;
   }
 
-  if (!isEdge && float(faceId) == hoveredFaceId) {
-    faceColor = vec3(1.0, 0.0, 0.0);
+  //   if (!isEdge && vFaceId == hoveredFaceId) {
+  //     faceColor = vec3(1.0, 0.0, 0.0);
+  //   }
+
+  if (!isEdge && faceIndex == hoveredFaceId) {
+    faceColor = indexToColor(faceIndex), 1.0;
+  } else {
+    faceColor = indexToColor(faceIndex) * 0.5;
   }
 
   //   faceColor = vec3(fract(float(faceId) / 4.0), 0.0, 0.0);

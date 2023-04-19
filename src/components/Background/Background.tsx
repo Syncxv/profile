@@ -32,13 +32,14 @@ export const Background: Component = () => {
 
 		const index = geometry.getIndex()
 
-		let faceIndices = new Float32Array(geometry.getAttribute('position').count)
-
-		for (let i = 0; i < faceIndices.length; i += 3) {
-			faceIndices[i] = faceIndices[i + 1] = faceIndices[i + 2] = i / 3
+		const numFaces = geometry.index
+			? geometry.index.count / 3
+			: geometry.getAttribute('position').count / 3
+		const faceIndices = new Float32Array(geometry.getAttribute('position').count)
+		for (let i = 0; i < numFaces; i++) {
+			faceIndices[i * 3] = faceIndices[i * 3 + 1] = faceIndices[i * 3 + 2] = i
 		}
-
-		geometry.setAttribute('faceId', new THREE.BufferAttribute(faceIndices, 1))
+		geometry.setAttribute('faceIndex', new THREE.BufferAttribute(faceIndices, 1))
 
 		for (let i = 0; i < positionAttribute.count; i++) {
 			vertex.fromBufferAttribute(positionAttribute, i)
@@ -82,9 +83,7 @@ export const Background: Component = () => {
 				if (intersects.length > 0) {
 					const faceIndex = intersects[0].faceIndex!
 					material.uniforms.hoveredFaceId.value = faceIndex
-					console.log(
-						(geometry.attributes.faceId as THREE.BufferAttribute).array[faceIndex]
-					)
+					console.log(faceIndex)
 				} else {
 					material.uniforms.hoveredFaceId.value = -1
 					console.log('no face')
