@@ -30,7 +30,7 @@ export const Background: Component = () => {
 
 		const vertex = new THREE.Vector3()
 
-		const index = geometry.getIndex()
+		// const index = geometry.getIndex()
 
 		const numFaces = geometry.index
 			? geometry.index.count / 3
@@ -47,7 +47,7 @@ export const Background: Component = () => {
 			// Apply your randomization logic here, for example:
 			vertex.x += (Math.random() - 0.5) * 4
 			vertex.y += (Math.random() - 0.5) * 3
-			vertex.z += (Math.random() - 0.5) * 24
+			vertex.z += (Math.random() - 0.5) * 90
 
 			// Update the position attribute with the modified vertex
 			positionAttribute.setXYZ(i, vertex.x, vertex.y, vertex.z)
@@ -74,12 +74,11 @@ export const Background: Component = () => {
 
 		window.addEventListener('mousemove', handleMouseMove)
 
-		camera.position.setY(2278)
 		setAnimateCallbacks((prev) => [
 			...prev,
 			() => {
 				raycaster.setFromCamera(mouse, camera)
-				const intersects = raycaster.intersectObject<THREE.Mesh>(plane)
+				const intersects = raycaster.intersectObjects<THREE.Mesh>([plane])
 				if (intersects.length > 0) {
 					const faceIndex = intersects[0].faceIndex!
 					material.uniforms.hoveredFaceId.value = faceIndex

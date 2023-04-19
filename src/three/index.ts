@@ -23,7 +23,7 @@ export const renderer = new THREE.WebGLRenderer({
 	logarithmicDepthBuffer: true
 })
 
-renderer.setPixelRatio(window.devicePixelRatio)
+renderer.setPixelRatio(window.devicePixelRatio * 1.5)
 
 new OrbitControls(camera, renderer.domElement)
 
@@ -37,9 +37,9 @@ function onResize() {
 }
 
 function animate() {
+	renderer.render(scene, camera)
 	animateCallbacks().forEach((callback) => callback())
 	requestAnimationFrame(animate)
-	renderer.render(scene, camera)
 }
 
 export const init = () => {

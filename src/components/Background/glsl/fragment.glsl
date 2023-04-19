@@ -38,10 +38,8 @@ void main() {
   //     faceColor = vec3(1.0, 0.0, 0.0);
   //   }
 
-  if (!isEdge && faceIndex == hoveredFaceId) {
-    faceColor = indexToColor(faceIndex), 1.0;
-  } else {
-    faceColor = indexToColor(faceIndex) * 0.5;
+  if (faceIndex == hoveredFaceId) {
+    faceColor = vec3(1.0, 0.0, 0.0);
   }
 
   //   faceColor = vec3(fract(float(faceId) / 4.0), 0.0, 0.0);

@@ -10,7 +10,7 @@ varying float vFaceId;
 
 float frequency1 = 0.5;
 float frequency2 = 0.9;
-float amplitude1 = 1.1;
+float amplitude1 = 50.1;
 float amplitude2 = 10.3;
 float scalingFactor = 5.0;
 float timeOffset = 2.0;
