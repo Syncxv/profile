@@ -27,8 +27,9 @@ void main() {
   bool isEdge =
       xDiff < edgeThreshold || yDiff < edgeThreshold || zDiff < edgeThreshold;
 
-  float faceIndex = float(int(floor(vUv.y * divisions.y) * divisions.x * 2.0 +
-                              floor(vUv.x * divisions.x) * 2.0));
+  float faceIndex = float(
+      int((divisions.y - 1.0 - floor(vUv.y * divisions.y)) * divisions.x * 2.0 +
+          floor(vUv.x * divisions.x) * 2.0));
   if (fract(vUv.x * divisions.x) > fract(vUv.y * divisions.y)) {
     faceIndex += 1.0;
   }
