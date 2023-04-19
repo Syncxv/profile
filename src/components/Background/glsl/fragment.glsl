@@ -1,14 +1,14 @@
 uniform float edgeThreshold;
 uniform vec3 coolPos;
 uniform vec3 faceIndices;
-uniform int hoveredFaceId;
+uniform float hoveredFaceId;
+uniform vec2 divisions;
 
 varying vec3 finalPos;
 varying vec3 vPosition;
 varying vec3 vBarycentric;
 varying vec2 vUv;
-
-flat in uint vFaceId;
+varying float vFaceId;
 
 void main() {
   vec3 edgeColor = vec3(.0, .0, .1);
@@ -22,15 +22,18 @@ void main() {
   bool isEdge =
       xDiff < edgeThreshold || yDiff < edgeThreshold || zDiff < edgeThreshold;
 
-  if (int(vFaceId) == hoveredFaceId / 2 && hoveredFaceId >= 0) {
-    bool isTriangleOne = vBarycentric.x > vBarycentric.y;
-    if (isTriangleOne && hoveredFaceId % 2 == 0) {
-      faceColor = vec3(1.0, 0.0, 0.0);
-    } else if (!isTriangleOne && hoveredFaceId % 2 == 1) {
-      faceColor = vec3(1.0, 0.0, 0.0);
-    }
+  int faceId = int(floor(vUv.y * divisions.y) * divisions.x * 2.0 +
+                   floor(vUv.x * divisions.x) * 2.0);
+  if (fract(vUv.x * divisions.x) > 0.5) {
+    faceId += 1;
   }
 
+  if (!isEdge && float(faceId) == hoveredFaceId) {
+    faceColor = vec3(1.0, 0.0, 0.0);
+  }
+
+  //   faceColor = vec3(fract(float(faceId) / 4.0), 0.0, 0.0);
+
   gl_FragColor = isEdge ? vec4(edgeColor, 1.0) : vec4(faceColor, 1.0);
-  //   gl_FragColor = vec4((float(vFaceId) + 50.) / 255.0);
+  //   gl_FragColor = vec4((float(vFaceId)) / 255.0);
 }

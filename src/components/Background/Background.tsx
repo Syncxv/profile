@@ -8,34 +8,36 @@ import fragmentShader from './glsl/fragment.glsl'
 import { setBarycentricCoordinates } from '../../utils/setBarycentricCoordinates'
 
 let g_Plane: THREE.Mesh
+
+const divisions = 10
 export const Background: Component = () => {
 	onMount(() => {
 		const clock = new THREE.Clock()
 		const material = new THREE.ShaderMaterial({
 			// wireframe: true,
 			uniforms: {
-				uTexture: { value: new THREE.TextureLoader().load('/debug-texture.jpg') },
+				// uTexture: { value: new THREE.TextureLoader().load('/debug-texture.jpg') },
 				time: { value: 0 },
 				edgeThreshold: { value: 0.01 },
-				faceIndices: { value: new THREE.Vector3(-1, -1, -1) },
-				hoveredFaceId: { value: -1000000 }
+				hoveredFaceId: { value: -1000000 },
+				divisions: { value: new THREE.Vector2(divisions, divisions) }
 			},
 			vertexShader: vertexShader,
 			fragmentShader
 		})
-		const geometry = new THREE.PlaneGeometry(1000, 1000, 10, 10)
+		const geometry = new THREE.PlaneGeometry(1000, 1000, divisions, divisions)
 		const positionAttribute = geometry.getAttribute('position') as THREE.BufferAttribute
 		const vertex = new THREE.Vector3()
 
 		const index = geometry.getIndex()
 
-		const faceIds = []
+		let faceIndices = new Float32Array(geometry.getAttribute('position').count)
 
-		for (let i = 0, faceId = 0; i < index!.count; i += 6, faceId++) {
-			faceIds.push(faceId, faceId, faceId)
+		for (let i = 0; i < faceIndices.length; i += 3) {
+			faceIndices[i] = faceIndices[i + 1] = faceIndices[i + 2] = i / 3
 		}
 
-		geometry.setAttribute('faceId', new THREE.BufferAttribute(new Uint32Array(faceIds), 1))
+		geometry.setAttribute('faceId', new THREE.BufferAttribute(faceIndices, 1))
 
 		for (let i = 0; i < positionAttribute.count; i++) {
 			vertex.fromBufferAttribute(positionAttribute, i)
@@ -70,6 +72,7 @@ export const Background: Component = () => {
 
 		window.addEventListener('mousemove', handleMouseMove)
 
+		camera.position.setY(2278)
 		setAnimateCallbacks((prev) => [
 			...prev,
 			() => {
@@ -78,7 +81,9 @@ export const Background: Component = () => {
 				if (intersects.length > 0) {
 					const faceIndex = intersects[0].faceIndex!
 					material.uniforms.hoveredFaceId.value = faceIndex
-					console.log(faceIndex)
+					console.log(
+						(geometry.attributes.faceId as THREE.BufferAttribute).array[faceIndex]
+					)
 				} else {
 					material.uniforms.hoveredFaceId.value = -1
 					console.log('no face')

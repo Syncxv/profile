@@ -1,13 +1,12 @@
 attribute vec3 barycentric;
-attribute uint faceId;
+attribute float faceId;
 uniform float time;
 varying vec2 vUv;
 varying vec3 finalPos;
 varying vec3 vPosition;
 varying vec3 vBarycentric;
 varying vec3 vNormal;
-
-flat out uint vFaceId;
+varying float vFaceId;
 
 float frequency1 = 0.5;
 float frequency2 = 0.9;
