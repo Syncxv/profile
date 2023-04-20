@@ -10,18 +10,11 @@ varying vec3 vBarycentric;
 varying vec2 vUv;
 varying float vFaceId;
 
-vec3 indexToColor(float index) {
-  float normalizedIndex = index / 255.0; // Assuming you have at most 256 faces
-  return vec3(normalizedIndex, 0.0, 1.0 - normalizedIndex);
-}
-
 void main() {
   vec3 edgeColor = vec3(0.5, .0, .1);
   float cool = vUv.y - (finalPos.z * 0.7);
   vec3 faceColor = mix(vec3(0.5, cool, 0.6), vec3(0.3, 0.4, 0.7), .996);
 
-  float maxBarycentric =
-      max(max(vBarycentric.x, vBarycentric.y), vBarycentric.z);
   bool isEdge = (fract(vUv.x * divisions.x) < edgeThreshold) ||
                 (fract(vUv.y * divisions.y) < edgeThreshold) ||
                 (abs(fract(vUv.x * divisions.x) - fract(vUv.y * divisions.y)) <

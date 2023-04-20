@@ -1,6 +1,6 @@
 import { Component, onCleanup, onMount } from 'solid-js'
 import * as THREE from 'three'
-import { Callback, scene, setAnimateCallbacks } from '../../three'
+import { Callback, renderer, scene, setAnimateCallbacks } from '../../three'
 import { camera } from '../../three/index'
 
 import vertexShader from './glsl/vertex.glsl'
@@ -16,6 +16,7 @@ import {
 	scalingFactor,
 	divisions
 } from '../../constants'
+import { getBloomComposer } from '../../utils/getBloomComposer'
 
 let g_Plane: THREE.Mesh
 
@@ -72,13 +73,15 @@ export const Background: Component = () => {
 
 	positionAttribute.needsUpdate = true
 	const plane = new THREE.Mesh(geometry, material)
+	//plane.layers.set(2)
 	plane.material.depthTest = false
 	plane.renderOrder = 1
 	plane.rotateX(-Math.PI / 2)
 	plane.position.set(0, -300, -220)
 	scene.add(plane)
-
 	clock.start()
+
+	//const bloomComposer = getBloomComposer({ strength: 0.3, radius: 0.5, threshold: 0.1 })
 
 	// mouse move raycast
 	const raycaster = new THREE.Raycaster()
@@ -127,6 +130,13 @@ export const Background: Component = () => {
 		}
 
 		material.uniforms.time.value = time
+
+		//XD
+		// camera.layers.set(2)
+		// bloomComposer.render()
+		// camera.layers.set(0)
+
+		renderer.clearDepth()
 	}
 	callback._name = 'Background'
 	setAnimateCallbacks((prev) => [...prev, callback])
