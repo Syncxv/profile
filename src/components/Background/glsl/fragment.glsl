@@ -18,7 +18,7 @@ vec3 indexToColor(float index) {
 void main() {
   vec3 edgeColor = vec3(0.5, .0, .1);
   float cool = vUv.y - (finalPos.z * 0.7);
-  vec3 faceColor = mix(vec3(0.2, cool, 0.6), vec3(0.0, 0.4, 0.7), .996);
+  vec3 faceColor = mix(vec3(0.5, cool, 0.6), vec3(0.3, 0.4, 0.7), .996);
 
   float maxBarycentric =
       max(max(vBarycentric.x, vBarycentric.y), vBarycentric.z);
