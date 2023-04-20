@@ -13,12 +13,12 @@ import {
 	amplitude1,
 	frequency2,
 	amplitude2,
-	scalingFactor
+	scalingFactor,
+	divisions
 } from '../../constants'
 
 let g_Plane: THREE.Mesh
 
-const divisions = 10
 export const Background: Component = () => {
 	onMount(() => {
 		const clock = new THREE.Clock()
@@ -90,6 +90,7 @@ export const Background: Component = () => {
 
 		window.addEventListener('mousemove', handleMouseMove)
 
+		// from vertex shader
 		function calculateSurface(x: number, z: number, time: number) {
 			const wave1 =
 				Math.sin(
@@ -129,7 +130,7 @@ export const Background: Component = () => {
 					console.log('no face')
 				}
 
-				material.uniforms.time.value = clock.getElapsedTime()
+				material.uniforms.time.value = time
 			}
 		])
 	})

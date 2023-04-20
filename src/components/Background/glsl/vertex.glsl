@@ -1,6 +1,9 @@
 attribute vec3 barycentric;
 attribute float faceId;
+
 uniform float time;
+uniform vec2 divisions;
+
 varying vec2 vUv;
 varying vec3 finalPos;
 varying vec3 vPosition;
