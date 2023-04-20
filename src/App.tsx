@@ -3,6 +3,7 @@ import { Background } from './components/Background'
 import { onMount } from 'solid-js'
 import * as mainStuff from './three/index'
 import { project, initTheater, sheet } from './three/theatre'
+import { Sun } from './components/Sun'
 
 const App: Component = () => {
 	onMount(() => {
@@ -32,6 +33,7 @@ const App: Component = () => {
 					Contact
 				</button>
 			</div>
+			<Sun />
 			<Background />
 		</>
 	)

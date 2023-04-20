@@ -72,9 +72,10 @@ export const Background: Component = () => {
 
 	positionAttribute.needsUpdate = true
 	const plane = new THREE.Mesh(geometry, material)
+	plane.material.depthTest = false
+	plane.renderOrder = 1
 	plane.rotateX(-Math.PI / 2)
 	plane.position.set(0, -300, -220)
-	g_Plane = plane
 	scene.add(plane)
 
 	clock.start()

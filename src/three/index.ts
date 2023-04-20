@@ -24,6 +24,7 @@ export const renderer = new THREE.WebGLRenderer({
 	alpha: true,
 	logarithmicDepthBuffer: true
 })
+renderer.autoClear = false
 
 renderer.setPixelRatio(window.devicePixelRatio * 1.5)
 

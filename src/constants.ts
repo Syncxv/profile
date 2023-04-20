@@ -7,4 +7,4 @@ export const scalingFactor = 550.0
 export const timeOffset = 2.0
 export const spatialFrequency = 1.0
 
-export const divisions = 20
+export const divisions = 30
