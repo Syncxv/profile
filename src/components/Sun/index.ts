@@ -1,1 +1,1 @@
-export { Sun } from './Sun'
+export { Sun } from './Sun';

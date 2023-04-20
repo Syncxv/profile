@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite'
-import solidPlugin from 'vite-plugin-solid'
-import { glslify } from 'vite-plugin-glslify'
+import { defineConfig } from 'vite';
+import { glslify } from 'vite-plugin-glslify';
+import solidPlugin from 'vite-plugin-solid';
 
 export default defineConfig({
 	plugins: [solidPlugin(), glslify({ transformFiles: true })],
@@ -10,4 +10,4 @@ export default defineConfig({
 	build: {
 		target: 'esnext'
 	}
-})
+});

@@ -1,13 +1,16 @@
 // import studio from '@theatre/studio'
-import '@theatre/core'
-import { getProject, types } from '@theatre/core'
-import { camera } from './index'
-import state from './cool-state.json'
+import '@theatre/core';
 
-console.log(state)
+// eslint-disable-next-line no-duplicate-imports
+import { getProject, types } from '@theatre/core';
 
-export const project = getProject('THREE.js x Theatre.js', { state: state })
-export const sheet = project.sheet('Animated scene')
+import state from './cool-state.json';
+import { camera } from './index';
+
+console.log(state);
+
+export const project = getProject('THREE.js x Theatre.js', { state: state });
+export const sheet = project.sheet('Animated scene');
 export const initTheater = () => {
 	// studio.initialize()
 
@@ -22,13 +25,13 @@ export const initTheater = () => {
 			y: types.number(camera.position.y, { range: [-1000, 1000] }),
 			z: types.number(camera.position.z, { range: [-1000, 1000] })
 		})
-	})
+	});
 
-	cameraObj.onValuesChange((values) => {
-		const { x, y, z } = values.rotation
-		const { x: x2, y: y2, z: z2 } = values.position
+	cameraObj.onValuesChange(values => {
+		const { x, y, z } = values.rotation;
+		const { x: x2, y: y2, z: z2 } = values.position;
 
-		camera.rotation.set(x * Math.PI, y * Math.PI, z * Math.PI)
-		camera.position.set(x2, y2, z2)
-	})
-}
+		camera.rotation.set(x * Math.PI, y * Math.PI, z * Math.PI);
+		camera.position.set(x2, y2, z2);
+	});
+};

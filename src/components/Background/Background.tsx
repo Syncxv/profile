@@ -1,27 +1,25 @@
-import { Component, onCleanup, onMount } from 'solid-js'
-import * as THREE from 'three'
-import { Callback, renderer, scene, setAnimateCallbacks } from '../../three'
-import { camera } from '../../three/index'
+import { Component, onCleanup } from 'solid-js';
+import * as THREE from 'three';
 
-import vertexShader from './glsl/vertex.glsl'
-import fragmentShader from './glsl/fragment.glsl'
-import { setBarycentricCoordinates } from '../../utils/setBarycentricCoordinates'
 import {
-	spatialFrequency,
-	timeOffset,
-	frequency1,
 	amplitude1,
-	frequency2,
 	amplitude2,
+	divisions,
+	frequency1,
+	frequency2,
 	scalingFactor,
-	divisions
-} from '../../constants'
-import { getBloomComposer } from '../../utils/getBloomComposer'
+	spatialFrequency,
+	timeOffset
+} from '../../constants';
+import { Callback, renderer, scene, setAnimateCallbacks } from '../../three';
+import { camera } from '../../three/index';
+import { setBarycentricCoordinates } from '../../utils/setBarycentricCoordinates';
+import fragmentShader from './glsl/fragment.glsl';
+import vertexShader from './glsl/vertex.glsl';
 
-let g_Plane: THREE.Mesh
 
 export const Background: Component = () => {
-	const clock = new THREE.Clock()
+	const clock = new THREE.Clock();
 	const material = new THREE.ShaderMaterial({
 		// wireframe: true,
 		uniforms: {
@@ -40,113 +38,112 @@ export const Background: Component = () => {
 		},
 		vertexShader: vertexShader,
 		fragmentShader
-	})
-	const geometry = new THREE.PlaneGeometry(1000, 1000, divisions, divisions)
-	const positionAttribute = geometry.getAttribute('position') as THREE.BufferAttribute
+	});
+	const geometry = new THREE.PlaneGeometry(1000, 1000, divisions, divisions);
+	const positionAttribute = geometry.getAttribute('position') as THREE.BufferAttribute;
 
-	const vertex = new THREE.Vector3()
+	const vertex = new THREE.Vector3();
 
 	// const index = geometry.getIndex()
 
 	const numFaces = geometry.index
 		? geometry.index.count / 3
-		: geometry.getAttribute('position').count / 3
-	const faceIndices = new Float32Array(geometry.getAttribute('position').count)
+		: geometry.getAttribute('position').count / 3;
+	const faceIndices = new Float32Array(geometry.getAttribute('position').count);
 	for (let i = 0; i < numFaces; i++) {
-		faceIndices[i * 3] = faceIndices[i * 3 + 1] = faceIndices[i * 3 + 2] = i
+		faceIndices[i * 3] = faceIndices[i * 3 + 1] = faceIndices[i * 3 + 2] = i;
 	}
-	geometry.setAttribute('faceIndex', new THREE.BufferAttribute(faceIndices, 1))
+	geometry.setAttribute('faceIndex', new THREE.BufferAttribute(faceIndices, 1));
 
 	for (let i = 0; i < positionAttribute.count; i++) {
-		vertex.fromBufferAttribute(positionAttribute, i)
+		vertex.fromBufferAttribute(positionAttribute, i);
 
-		// Apply your randomization logic here, for example:
-		vertex.x += (Math.random() - 0.5) * 4
-		vertex.y += (Math.random() - 0.5) * 3
-		vertex.z += (Math.random() - 0.5) * 90
+		vertex.x += (Math.random() - 0.5) * 4;
+		vertex.y += (Math.random() - 0.5) * 3;
+		vertex.z += (Math.random() - 0.5) * 90;
 
 		// Update the position attribute with the modified vertex
-		positionAttribute.setXYZ(i, vertex.x, vertex.y, vertex.z)
+		positionAttribute.setXYZ(i, vertex.x, vertex.y, vertex.z);
 	}
 
-	setBarycentricCoordinates(geometry)
+	setBarycentricCoordinates(geometry);
 
-	positionAttribute.needsUpdate = true
-	const plane = new THREE.Mesh(geometry, material)
-	//plane.layers.set(2)
-	plane.material.depthTest = false
-	plane.renderOrder = 1
-	plane.rotateX(-Math.PI / 2)
-	plane.position.set(0, -300, -220)
-	scene.add(plane)
-	clock.start()
+	positionAttribute.needsUpdate = true;
+	const plane = new THREE.Mesh(geometry, material);
+	// plane.layers.set(2)
+	plane.material.depthTest = false;
+	plane.renderOrder = 1;
+	plane.rotateX(-Math.PI / 2);
+	plane.position.set(0, -300, -220);
+	scene.add(plane);
+	clock.start();
 
-	//const bloomComposer = getBloomComposer({ strength: 0.3, radius: 0.5, threshold: 0.1 })
+	// const bloomComposer = getBloomComposer({ strength: 0.3, radius: 0.5, threshold: 0.1 })
 
 	// mouse move raycast
-	const raycaster = new THREE.Raycaster()
-	const mouse = new THREE.Vector2()
+	const raycaster = new THREE.Raycaster();
+	const mouse = new THREE.Vector2();
 	const handleMouseMove = (e: MouseEvent) => {
-		mouse.x = (e.clientX / window.innerWidth) * 2 - 1
-		mouse.y = -(e.clientY / window.innerHeight) * 2 + 1
-	}
+		mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+		mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+	};
 
-	window.addEventListener('mousemove', handleMouseMove)
+	window.addEventListener('mousemove', handleMouseMove);
 
 	// from vertex shader
 	function calculateSurface(x: number, z: number, time: number) {
 		const wave1 =
 			Math.sin((x * spatialFrequency + (time + timeOffset) * frequency1) * 2.0 * Math.PI) *
-			amplitude1
+			amplitude1;
 		const wave2 =
 			Math.sin((z * spatialFrequency - (time + timeOffset) * frequency2) * 1.5 * Math.PI) *
-			amplitude2
+			amplitude2;
 
-		return (wave1 + wave2) / scalingFactor
+		return (wave1 + wave2) / scalingFactor;
 	}
 
 	const callback: Callback = () => {
-		const time = clock.getElapsedTime()
+		const time = clock.getElapsedTime();
 		for (let i = 0; i < positionAttribute.count; i++) {
-			vertex.fromBufferAttribute(positionAttribute, i)
+			vertex.fromBufferAttribute(positionAttribute, i);
 
 			// Calculate the new Z value based on the original X and Y values
-			vertex.z = calculateSurface(vertex.y, vertex.x, time) + vertex.z
+			vertex.z = calculateSurface(vertex.y, vertex.x, time) + vertex.z;
 
 			// Update the position attribute with the modified vertex
-			positionAttribute.setXYZ(i, vertex.x, vertex.y, vertex.z)
+			positionAttribute.setXYZ(i, vertex.x, vertex.y, vertex.z);
 		}
-		positionAttribute.needsUpdate = true
+		positionAttribute.needsUpdate = true;
 
-		raycaster.setFromCamera(mouse, camera)
-		const intersects = raycaster.intersectObjects<THREE.Mesh>([plane])
+		raycaster.setFromCamera(mouse, camera);
+		const intersects = raycaster.intersectObjects<THREE.Mesh>([plane]);
 		if (intersects.length > 0) {
-			const faceIndex = intersects[0].faceIndex!
-			material.uniforms.hoveredFaceId.value = faceIndex
+			const faceIndex = intersects[0].faceIndex!;
+			material.uniforms.hoveredFaceId.value = faceIndex;
 			// console.log(faceIndex)
 		} else {
-			material.uniforms.hoveredFaceId.value = -1
+			material.uniforms.hoveredFaceId.value = -1;
 			// console.log('no face')
 		}
 
-		material.uniforms.time.value = time
+		material.uniforms.time.value = time;
 
-		//XD
+		// XD
 		// camera.layers.set(2)
 		// bloomComposer.render()
 		// camera.layers.set(0)
 
-		renderer.clearDepth()
-	}
-	callback._name = 'Background'
-	setAnimateCallbacks((prev) => [...prev, callback])
+		renderer.clearDepth();
+	};
+	callback._name = 'Background';
+	setAnimateCallbacks(prev => [...prev, callback]);
 
 	onCleanup(() => {
 		// clean up code here
-		scene.remove(plane)
-		window.removeEventListener('mousemove', handleMouseMove)
-		setAnimateCallbacks((prev) => prev.filter((cb) => cb._name !== 'Background'))
-	})
+		scene.remove(plane);
+		window.removeEventListener('mousemove', handleMouseMove);
+		setAnimateCallbacks(prev => prev.filter(cb => cb._name !== 'Background'));
+	});
 
-	return <></>
-}
+	return <></>;
+};
