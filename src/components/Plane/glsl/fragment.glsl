@@ -8,7 +8,7 @@ varying vec2 vUv;
 void main() {
   vec3 edgeColor = vec3(0.5, .0, .1);
   float cool = vUv.x - (finalPos.z * 0.7);
-  vec3 faceColor = mix(vec3(0.5, cool, 0.6), vec3(0.3, 0.4, 0.7), .996);
+  vec3 faceColor = mix(vec3(cool * 4., 0.1, 0.6), vec3(0.3, 0.4, 0.7), .996);
 
   bool isEdge = (fract(vUv.x * divisions.x) < edgeThreshold) ||
                 (fract(vUv.y * divisions.y) < edgeThreshold) ||

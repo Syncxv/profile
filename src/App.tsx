@@ -1,8 +1,8 @@
 import { Component, createSignal, onMount } from 'solid-js';
 
 import { Button } from './components/Button/Button';
-import { Plane } from './components/Plane';
-import { Sun } from './components/Sun';
+import { Plane } from "./components/Plane";
+import { Sun } from "./components/Sun";
 import * as mainStuff from './three/index';
 import { initTheater, project, sheet } from './three/theatre';
 
@@ -36,8 +36,8 @@ const App: Component = () => {
 	};
 	return (
 		<>
-			<div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-				{/* content */}
+			<div class="container">
+				<h1 class="z-10">hey</h1>
 			</div>
 			<Button onClick={handleClick} />
 			<Sun />
