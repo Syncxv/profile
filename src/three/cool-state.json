@@ -61,8 +61,8 @@
                     "value": 251
                   },
                   {
-                    "id": "In_n3ky0ye",
-                    "position": 2.2,
+                    "id": "XA0JljHITY",
+                    "position": 2.267,
                     "connectedRight": true,
                     "handles": [
                       0.5,
@@ -71,7 +71,7 @@
                       0
                     ],
                     "type": "bezier",
-                    "value": 36.08721447641648
+                    "value": -229.68957454842592
                   }
                 ]
               },
@@ -165,6 +165,7 @@
   },
   "definitionVersion": "0.4.0",
   "revisionHistory": [
+    "KbECq-EgE5eQonL0",
     "mDTRmbtpTml0YsR9"
   ]
 }

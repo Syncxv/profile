@@ -27,7 +27,7 @@ renderer.setPixelRatio(window.devicePixelRatio * 1.5)
 
 new OrbitControls(camera, renderer.domElement)
 
-document.addEventListener('resize', onResize)
+window.addEventListener('resize', onResize)
 
 function onResize() {
 	resizeCallbacks().forEach((callback) => callback())

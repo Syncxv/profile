@@ -9,7 +9,7 @@ console.log(state)
 export const project = getProject('THREE.js x Theatre.js', { state: state })
 export const sheet = project.sheet('Animated scene')
 export const initTheater = () => {
-	// if (false) studio.initialize()
+	// studio.initialize()
 
 	const cameraObj = sheet.object('Camera', {
 		rotation: types.compound({

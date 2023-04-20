@@ -74,7 +74,7 @@ export const Background: Component = () => {
 		positionAttribute.needsUpdate = true
 		const plane = new THREE.Mesh(geometry, material)
 		plane.rotateX(-Math.PI / 2)
-		plane.position.set(0, -80, -220)
+		plane.position.set(0, -300, -220)
 		g_Plane = plane
 		scene.add(plane)
 
@@ -124,10 +124,10 @@ export const Background: Component = () => {
 				if (intersects.length > 0) {
 					const faceIndex = intersects[0].faceIndex!
 					material.uniforms.hoveredFaceId.value = faceIndex
-					console.log(faceIndex)
+					// console.log(faceIndex)
 				} else {
 					material.uniforms.hoveredFaceId.value = -1
-					console.log('no face')
+					// console.log('no face')
 				}
 
 				material.uniforms.time.value = time
