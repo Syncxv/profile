@@ -7,7 +7,7 @@ import {
 	scene,
 	setAnimateCallbacks
 } from '../../three';
-import { getBloomComposer } from '../../utils/getBloomComposer';
+import { createBloomComposer } from '../../utils/createBloomComposer';
 
 export const Sun: Component = () => {
 	const sunRadius = 500;
@@ -15,12 +15,11 @@ export const Sun: Component = () => {
 	const sunMaterial = new THREE.MeshBasicMaterial({ color: 0xff4d4d });
 	const sunMesh = new THREE.Mesh(sunGeometry, sunMaterial);
 	sunMesh.layers.set(1);
-	// Set the sun's position in the scene
 	sunMesh.position.set(0, -250, -3000);
 
 	scene.add(sunMesh);
 
-	const bloomComposer = getBloomComposer({ strength: 0.5, radius: 1.5 });
+	const bloomComposer = createBloomComposer({ strength: 0.5, radius: 1.5 });
 
 	const aimbientLight = new THREE.AmbientLight(0xffffff, 0.5);
 	scene.add(aimbientLight);
@@ -36,6 +35,7 @@ export const Sun: Component = () => {
 
 	onCleanup(() => {
 		scene.remove(sunMesh);
+		scene.remove(aimbientLight);
 		setAnimateCallbacks(prev => prev.filter(cb => cb._name !== 'sunRender'));
 	});
 

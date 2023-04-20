@@ -3,22 +3,22 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
 
-import { camera, getHeight, getWidth, renderer,scene } from '../three';
+import { camera, getHeight, getWidth, renderer, scene } from '../three';
 
 export interface BloomComposerOptions {
-	strength?: number
-	radius?: number
-	threshold?: number
+	strength?: number;
+	radius?: number;
+	threshold?: number;
 
-	width?: number
-	height?: number
+	width?: number;
+	height?: number;
 
-	renderToScreen?: boolean
+	renderToScreen?: boolean;
 
-	_scene?: THREE.Scene
+	_scene?: THREE.Scene;
 }
 
-export function getBloomComposer({
+export function createBloomComposer({
 	height,
 	width,
 	radius,

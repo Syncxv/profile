@@ -13,7 +13,6 @@ import {
 } from '../../constants';
 import { Callback, renderer, scene, setAnimateCallbacks } from '../../three';
 import { camera } from '../../three/index';
-import { setBarycentricCoordinates } from '../../utils/setBarycentricCoordinates';
 import fragmentShader from './glsl/fragment.glsl';
 import vertexShader from './glsl/vertex.glsl';
 
@@ -46,15 +45,7 @@ export const Background: Component = () => {
 
 	// const index = geometry.getIndex()
 
-	const numFaces = geometry.index
-		? geometry.index.count / 3
-		: geometry.getAttribute('position').count / 3;
-	const faceIndices = new Float32Array(geometry.getAttribute('position').count);
-	for (let i = 0; i < numFaces; i++) {
-		faceIndices[i * 3] = faceIndices[i * 3 + 1] = faceIndices[i * 3 + 2] = i;
-	}
-	geometry.setAttribute('faceIndex', new THREE.BufferAttribute(faceIndices, 1));
-
+	// thanks ant0n.net
 	for (let i = 0; i < positionAttribute.count; i++) {
 		vertex.fromBufferAttribute(positionAttribute, i);
 
@@ -66,7 +57,7 @@ export const Background: Component = () => {
 		positionAttribute.setXYZ(i, vertex.x, vertex.y, vertex.z);
 	}
 
-	setBarycentricCoordinates(geometry);
+	// setBarycentricCoordinates(geometry);
 
 	positionAttribute.needsUpdate = true;
 	const plane = new THREE.Mesh(geometry, material);
@@ -78,7 +69,7 @@ export const Background: Component = () => {
 	scene.add(plane);
 	clock.start();
 
-	// const bloomComposer = getBloomComposer({ strength: 0.3, radius: 0.5, threshold: 0.1 })
+	// const bloomComposer = createBloomComposer({ strength: 0.3, radius: 0.5, threshold: 0.1 })
 
 	// mouse move raycast
 	const raycaster = new THREE.Raycaster();
@@ -139,7 +130,6 @@ export const Background: Component = () => {
 	setAnimateCallbacks(prev => [...prev, callback]);
 
 	onCleanup(() => {
-		// clean up code here
 		scene.remove(plane);
 		window.removeEventListener('mousemove', handleMouseMove);
 		setAnimateCallbacks(prev => prev.filter(cb => cb._name !== 'Background'));

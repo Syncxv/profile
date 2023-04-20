@@ -7,7 +7,6 @@ import { getProject, types } from '@theatre/core';
 import state from './cool-state.json';
 import { camera } from './index';
 
-console.log(state);
 
 export const project = getProject('THREE.js x Theatre.js', { state: state });
 export const sheet = project.sheet('Animated scene');

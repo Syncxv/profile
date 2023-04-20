@@ -1,14 +1,9 @@
 uniform float edgeThreshold;
-uniform vec3 coolPos;
-uniform vec3 faceIndices;
 uniform float hoveredFaceId;
 uniform vec2 divisions;
 
 varying vec3 finalPos;
-varying vec3 vPosition;
-varying vec3 vBarycentric;
 varying vec2 vUv;
-varying float vFaceId;
 
 void main() {
   vec3 edgeColor = vec3(0.5, .0, .1);

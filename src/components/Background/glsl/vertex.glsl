@@ -1,15 +1,7 @@
-attribute vec3 barycentric;
-attribute float faceId;
-
 uniform float time;
-uniform vec2 divisions;
 
 varying vec2 vUv;
 varying vec3 finalPos;
-varying vec3 vPosition;
-varying vec3 vBarycentric;
-varying vec3 vNormal;
-varying float vFaceId;
 
 uniform float frequency1;
 uniform float frequency2;
@@ -31,12 +23,10 @@ float calculateSurface(float x, float z) {
 
 void main() {
   vUv = uv;
-  vPosition = position;
-  vBarycentric = barycentric;
-  vNormal = normal;
-  vFaceId = faceId;
   vec3 newPosition = position;
   newPosition.z = calculateSurface(position.y, position.x) + position.z;
   finalPos = newPosition;
+  // we are not using finalPos because we are doing it in js on the cpu but
+  // the fragment shader needs it XD
   gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 }
