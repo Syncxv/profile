@@ -39,7 +39,7 @@ export const Background: Component = () => {
 		vertexShader: vertexShader,
 		fragmentShader
 	});
-	const geometry = new THREE.PlaneGeometry(1000, 1000, divisions, divisions);
+	const geometry = new THREE.PlaneGeometry(2000, 2000, divisions, divisions);
 	const positionAttribute = geometry.getAttribute('position') as THREE.BufferAttribute;
 
 	const vertex = new THREE.Vector3();

@@ -49,29 +49,29 @@
                 "keyframes": [
                   {
                     "id": "637Ut0iQXA",
-                    "position": 0,
+                    "position": -0.4,
                     "connectedRight": true,
                     "handles": [
                       0.5,
                       1,
-                      0.5,
-                      0
+                      0.645,
+                      0.045
                     ],
                     "type": "bezier",
-                    "value": 251
+                    "value": 285.68893836947404
                   },
                   {
                     "id": "XA0JljHITY",
-                    "position": 2.267,
+                    "position": 2.333,
                     "connectedRight": true,
                     "handles": [
-                      0.5,
+                      0.355,
                       1,
                       0.5,
                       0
                     ],
                     "type": "bezier",
-                    "value": -229.68957454842592
+                    "value": -245.629116185062
                   }
                 ]
               },
@@ -91,19 +91,6 @@
                     ],
                     "type": "bezier",
                     "value": 0
-                  },
-                  {
-                    "id": "iTjPsYcKPx",
-                    "position": 2.267,
-                    "connectedRight": true,
-                    "handles": [
-                      0.024574462464351732,
-                      0.6987199404613871,
-                      0.009594552770041176,
-                      -0.02466026123115239
-                    ],
-                    "type": "bezier",
-                    "value": -75.4217073101352
                   }
                 ]
               },
@@ -118,24 +105,24 @@
                     "handles": [
                       0.5,
                       1,
-                      0.34307204975683425,
-                      0.02007620789513781
+                      0.645,
+                      0.045
                     ],
                     "type": "bezier",
                     "value": -0.5406438950748226
                   },
                   {
-                    "id": "Vc13wWmDSY",
-                    "position": 2.2,
+                    "id": "KQXj1FGK80",
+                    "position": 3.3,
                     "connectedRight": true,
                     "handles": [
-                      0.639654351885305,
-                      0.9644737912527636,
+                      0.355,
+                      1,
                       0.5,
                       0
                     ],
                     "type": "bezier",
-                    "value": -0.050640421465291935
+                    "value": -0.04640421465291935
                   }
                 ]
               },
@@ -165,6 +152,7 @@
   },
   "definitionVersion": "0.4.0",
   "revisionHistory": [
+    "mriUc3kUCeXImXyb",
     "KbECq-EgE5eQonL0",
     "mDTRmbtpTml0YsR9"
   ]

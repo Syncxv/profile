@@ -18,8 +18,8 @@ const App: Component = () => {
 		console.log(sheet.sequence.position);
 		project.ready.then(() =>
 			sheet.sequence.position >= 2.3
-				? sheet.sequence.play({ direction: 'reverse', range: [0, 2.3] })
-				: sheet.sequence.play({ range: [0, 2.3] })
+				? sheet.sequence.play({ direction: 'reverse', range: [0, 3.3] })
+				: sheet.sequence.play({ range: [0, 3.3] })
 		);
 	};
 	return (
