@@ -2,8 +2,10 @@ import { createSignal } from 'solid-js'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
-export const [animateCallbacks, setAnimateCallbacks] = createSignal<(() => void)[]>([])
-export const [resizeCallbacks, setResizeCallbacks] = createSignal<(() => void)[]>([])
+export type Callback = (() => void) & { [key: string]: any }
+
+export const [animateCallbacks, setAnimateCallbacks] = createSignal<Callback[]>([])
+export const [resizeCallbacks, setResizeCallbacks] = createSignal<Callback[]>([])
 
 //Container stuff
 export const container = document.querySelector('.three-container')!
@@ -37,8 +39,9 @@ function onResize() {
 }
 
 function animate() {
-	renderer.render(scene, camera)
+	renderer.clear()
 	animateCallbacks().forEach((callback) => callback())
+	renderer.render(scene, camera)
 	requestAnimationFrame(animate)
 }
 
