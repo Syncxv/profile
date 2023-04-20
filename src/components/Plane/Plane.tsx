@@ -17,7 +17,7 @@ import fragmentShader from './glsl/fragment.glsl';
 import vertexShader from './glsl/vertex.glsl';
 
 
-export const Background: Component = () => {
+export const Plane: Component = () => {
 	const clock = new THREE.Clock();
 	const material = new THREE.ShaderMaterial({
 		// wireframe: true,

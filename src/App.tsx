@@ -1,6 +1,6 @@
 import { Component, onMount } from 'solid-js';
 
-import { Background } from './components/Background';
+import { Plane } from './components/Plane';
 import { Sun } from './components/Sun';
 import * as mainStuff from './three/index';
 import { initTheater, project, sheet } from './three/theatre';
@@ -34,7 +34,7 @@ const App: Component = () => {
 				</button>
 			</div>
 			<Sun />
-			<Background />
+			<Plane />
 		</>
 	);
 };
