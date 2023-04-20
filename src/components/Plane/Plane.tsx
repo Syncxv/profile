@@ -50,8 +50,8 @@ export const Plane: Component = () => {
 		vertex.fromBufferAttribute(positionAttribute, i);
 
 		vertex.x += (Math.random() - 0.5) * 4;
-		vertex.y += (Math.random() - 0.5) * 3;
-		vertex.z += (Math.random() - 0.5) * 90;
+		vertex.y += (Math.random() - 0.5) * 5;
+		vertex.z += (Math.random() - 0.5) * 70;
 
 		// Update the position attribute with the modified vertex
 		positionAttribute.setXYZ(i, vertex.x, vertex.y, vertex.z);

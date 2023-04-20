@@ -15,9 +15,8 @@ const App: Component = () => {
 	});
 
 	const handleClick = () => {
-		console.log(sheet.sequence.position);
 		project.ready.then(() =>
-			sheet.sequence.position >= 2.3
+			sheet.sequence.position >= 3.3
 				? sheet.sequence.play({ direction: 'reverse', range: [0, 3.3] })
 				: sheet.sequence.play({ range: [0, 3.3] })
 		);
@@ -27,7 +26,7 @@ const App: Component = () => {
 			<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
 				<button
 					type="button"
-					class="px-12 py-3 bg-slate-200 rounded-md text-slate-800"
+					class="px-12 py-3 outline-1 outline-slate-200 rounded-md text-slate-800"
 					onClick={handleClick}
 				>
 					Contact
