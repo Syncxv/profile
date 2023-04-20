@@ -6,6 +6,15 @@ import { camera } from '../../three/index'
 import vertexShader from './glsl/vertex.glsl'
 import fragmentShader from './glsl/fragment.glsl'
 import { setBarycentricCoordinates } from '../../utils/setBarycentricCoordinates'
+import {
+	spatialFrequency,
+	timeOffset,
+	frequency1,
+	amplitude1,
+	frequency2,
+	amplitude2,
+	scalingFactor
+} from '../../constants'
 
 let g_Plane: THREE.Mesh
 
@@ -20,7 +29,14 @@ export const Background: Component = () => {
 				time: { value: 0 },
 				edgeThreshold: { value: 0.01 },
 				hoveredFaceId: { value: -1000000 },
-				divisions: { value: new THREE.Vector2(divisions, divisions) }
+				divisions: { value: new THREE.Vector2(divisions, divisions) },
+				spatialFrequency: { value: spatialFrequency },
+				timeOffset: { value: timeOffset },
+				frequency1: { value: frequency1 },
+				frequency2: { value: frequency2 },
+				amplitude1: { value: amplitude1 },
+				amplitude2: { value: amplitude2 },
+				scalingFactor: { value: scalingFactor }
 			},
 			vertexShader: vertexShader,
 			fragmentShader
@@ -58,7 +74,7 @@ export const Background: Component = () => {
 		positionAttribute.needsUpdate = true
 		const plane = new THREE.Mesh(geometry, material)
 		plane.rotateX(-Math.PI / 2)
-		plane.position.set(0, 0, -220)
+		plane.position.set(0, -80, -220)
 		g_Plane = plane
 		scene.add(plane)
 
@@ -74,9 +90,34 @@ export const Background: Component = () => {
 
 		window.addEventListener('mousemove', handleMouseMove)
 
+		function calculateSurface(x: number, z: number, time: number) {
+			const wave1 =
+				Math.sin(
+					(x * spatialFrequency + (time + timeOffset) * frequency1) * 2.0 * Math.PI
+				) * amplitude1
+			const wave2 =
+				Math.sin(
+					(z * spatialFrequency - (time + timeOffset) * frequency2) * 1.5 * Math.PI
+				) * amplitude2
+
+			return (wave1 + wave2) / scalingFactor
+		}
+
 		setAnimateCallbacks((prev) => [
 			...prev,
 			() => {
+				const time = clock.getElapsedTime()
+				for (let i = 0; i < positionAttribute.count; i++) {
+					vertex.fromBufferAttribute(positionAttribute, i)
+
+					// Calculate the new Z value based on the original X and Y values
+					vertex.z = calculateSurface(vertex.y, vertex.x, time) + vertex.z
+
+					// Update the position attribute with the modified vertex
+					positionAttribute.setXYZ(i, vertex.x, vertex.y, vertex.z)
+				}
+				positionAttribute.needsUpdate = true
+
 				raycaster.setFromCamera(mouse, camera)
 				const intersects = raycaster.intersectObjects<THREE.Mesh>([plane])
 				if (intersects.length > 0) {

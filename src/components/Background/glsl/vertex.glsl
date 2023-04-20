@@ -8,13 +8,13 @@ varying vec3 vBarycentric;
 varying vec3 vNormal;
 varying float vFaceId;
 
-float frequency1 = 0.5;
-float frequency2 = 0.9;
-float amplitude1 = 50.1;
-float amplitude2 = 10.3;
-float scalingFactor = 5.0;
-float timeOffset = 2.0;
-float spatialFrequency = 1.0;
+uniform float frequency1;
+uniform float frequency2;
+uniform float amplitude1;
+uniform float amplitude2;
+uniform float scalingFactor;
+uniform float timeOffset;
+uniform float spatialFrequency;
 
 float calculateSurface(float x, float z) {
   float wave1 = sin((x * spatialFrequency + (time + timeOffset) * frequency1) *
@@ -35,5 +35,5 @@ void main() {
   vec3 newPosition = position;
   newPosition.z = calculateSurface(position.y, position.x) + position.z;
   finalPos = newPosition;
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 }
