@@ -11,7 +11,7 @@ export const Button: Component<ButtonProps> = ({ onClick }) => {
 	return (
 		<button
 			type="button"
-			class={`${Styles.button} ${isFacingSun() ? `${Styles.close} ${Styles.topRight}` : `${Styles.center} mt-20`}`}
+			class={`${Styles.button} ${isFacingSun() ? `${Styles.close} ${Styles.topRight}` : Styles.center}`}
 			onClick={onClick}
 		>
 			<span class={isFacingSun() ? Styles.fade : ''}>{isFacingSun() ? '' : 'stuff'}</span>

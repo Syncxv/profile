@@ -1,6 +1,7 @@
 import { Component, createSignal, onMount } from 'solid-js';
 
 import { Button } from './components/Button/Button';
+import { Footer } from './components/Footer';
 import { Plane } from "./components/Plane";
 import { Sun } from "./components/Sun";
 import * as mainStuff from './three/index';
@@ -42,6 +43,7 @@ const App: Component = () => {
 			<Button onClick={handleClick} />
 			<Sun />
 			<Plane />
+			<Footer />
 		</>
 	);
 };

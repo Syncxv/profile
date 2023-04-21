@@ -2,7 +2,7 @@
 	"extends": "eslint:recommended",
 	"parser": "@typescript-eslint/parser",
 	"plugins": ["@typescript-eslint", "simple-import-sort", "unused-imports", "path-alias"],
-	"ignorePatterns": ["dist/*", "*.config.js"],
+	"ignorePatterns": ["dist/*", "scripts/*", "*.config.js"],
 	"settings": {
 		"import/resolver": {
 			"alias": {
