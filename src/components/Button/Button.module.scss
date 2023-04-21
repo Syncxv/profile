@@ -14,7 +14,7 @@ $fade-duration: 5.2s;
     transition: top $transition-duration, left $transition-duration, transform $transition-duration, outline-color $fade-duration;
 
     &.center {
-        top: calc(50% + 5rem);
+        top: calc(50% + 8rem);
         left: 50%;
         transform: translate(-50%, -50%);
         transition: top $return-transition-duration, left $return-transition-duration, transform $return-transition-duration, outline-color $fade-duration;

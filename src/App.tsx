@@ -25,20 +25,22 @@ const App: Component = () => {
 		setPlaying(true);
 		if (sheet.sequence.position >= 3.3) {
 			setIsFacingSun(false);
-			sheet.sequence.play({ direction: 'reverse', range: [0, 3.3] }).finally(() => {
-				setPlaying(false);
-			});
+			sheet.sequence.play({ direction: 'reverse', range: [0, 3.3] }).finally(() => setPlaying(false));
 		} else {
 			setIsFacingSun(true);
-			sheet.sequence.play({ range: [0, 3.3] }).finally(() => {
-				setPlaying(false);
-			});
+			sheet.sequence.play({ range: [0, 3.3] }).finally(() => setPlaying(false));
 		}
 	};
 	return (
 		<>
 			<div class="container">
-				<h1 class="z-10">hey</h1>
+				<div class={`transition-opacity duration-[1.65s] z-20 ${isFacingSun() ? `opacity-0 ${!isPlaying() ? "hidden" : ""}` : "opacity-100"}`}>
+					<h2 class="z-10 text-2xl">Aria#8171</h2>
+					<h1 class="z-10 text-7xl">i do stuff</h1>
+				</div>
+				{/* <div class={`transition-opacity duration-[1.65s] z-20 ${isFacingSun() && !isPlaying() ? `opacity-100` : "opacity-0"}`}>
+					<h1 class="text-9xl">HEY</h1>
+				</div> */}
 			</div>
 			<Button onClick={handleClick} />
 			<Sun />
