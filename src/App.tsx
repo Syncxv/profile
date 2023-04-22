@@ -34,7 +34,7 @@ const App: Component = () => {
 	return (
 		<>
 			<div class="container">
-				<div class={`transition-opacity duration-[1.65s] z-20 ${isFacingSun() ? `opacity-0 ${!isPlaying() ? "hidden" : ""}` : "opacity-100"}`}>
+				<div class={`transition-opacity duration-[1.65s] z-20 ${isFacingSun() ? `opacity-0 ${!isPlaying() ? "scale-0" : ""}` : "opacity-100 scale-100"}`}>
 					<h2 class="z-10 text-2xl">Aria#8171</h2>
 					<h1 class="z-10 text-7xl">i do stuff</h1>
 				</div>
