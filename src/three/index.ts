@@ -1,6 +1,5 @@
 import { createSignal } from 'solid-js';
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 export type Callback = (() => void) & { [key: string]: any; };
 
@@ -27,9 +26,11 @@ export const renderer = new THREE.WebGLRenderer({
 renderer.autoClear = false;
 
 renderer.setPixelRatio(window.devicePixelRatio * 1.5);
-
-new OrbitControls(camera, renderer.domElement);
-
+if (import.meta.env.DEV) {
+	import('three/examples/jsm/controls/OrbitControls.js').then(({ OrbitControls }) => {
+		new OrbitControls(camera, renderer.domElement);
+	});
+}
 window.addEventListener('resize', onResize);
 
 function onResize() {
