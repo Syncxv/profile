@@ -35,7 +35,7 @@ export const Plane: Component = () => {
 			amplitude2: { value: amplitude2 },
 			scalingFactor: { value: scalingFactor }
 		},
-		vertexShader: vertexShader,
+		vertexShader,
 		fragmentShader
 	});
 	const geometry = new THREE.PlaneGeometry(2000, 2000, divisions, divisions);
