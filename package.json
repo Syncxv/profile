@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "",
   "scripts": {
+		"install": "npm ci --legacy-peer-deps",
     "dev": "vite",
     "build": "node scripts/buildDate.mjs && vite build",
     "serve": "vite preview",
@@ -12,27 +13,29 @@
   "license": "MIT",
   "devDependencies": {
     "@types/three": "^0.149.0",
-    "@typescript-eslint/eslint-plugin": "^5.58.0",
-    "@typescript-eslint/parser": "^5.58.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.2",
+    "@typescript-eslint/parser": "^5.59.2",
     "autoprefixer": "^10.4.14",
-    "eslint": "^8.38.0",
+    "eslint": "^8.39.0",
     "eslint-plugin-path-alias": "^1.0.0",
     "eslint-plugin-simple-import-sort": "^8.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
     "glslify": "github:glslify/glslify#a3e46d8",
-    "postcss": "^8.4.21",
-    "tailwindcss": "^3.3.1",
+    "postcss": "^8.4.23",
+    "solid-start": "^0.2.26",
+    "solid-start-cloudflare-pages": "^0.2.26",
+    "tailwindcss": "^3.3.2",
     "typescript": "^4.9.5",
-    "vite": "^4.2.1",
+    "vite": "^4.3.5",
     "vite-plugin-glslify": "^2.0.1",
-    "vite-plugin-solid": "^2.6.1"
+    "vite-plugin-solid": "^2.7.0"
   },
   "dependencies": {
     "@theatre/core": "^0.6.0",
     "@theatre/studio": "^0.6.0",
     "glsl-noise": "^0.0.0",
-    "sass": "^1.60.0",
-    "solid-js": "^1.7.1",
+    "sass": "^1.62.1",
+    "solid-js": "^1.7.4",
     "three": "^0.149.0"
   }
 }
