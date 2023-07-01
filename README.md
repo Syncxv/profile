@@ -1,3 +1,3 @@
 WIP
 
-https://profile.daveyy.net
+[profile.daveyy.net](https://profile.daveyy.net/)
