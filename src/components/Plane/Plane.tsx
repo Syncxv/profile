@@ -26,6 +26,7 @@ export const Plane: Component = () => {
 			time: { value: 0 },
 			edgeThreshold: { value: 0.01 },
 			hoveredFaceId: { value: -1000000 },
+			previousHoveredFaceIds: { value: Array(10).fill(0) },
 			divisions: { value: new THREE.Vector2(divisions, divisions) },
 			spatialFrequency: { value: spatialFrequency },
 			timeOffset: { value: timeOffset },
@@ -111,6 +112,14 @@ export const Plane: Component = () => {
 		if (intersects.length > 0) {
 			const faceIndex = intersects[0].faceIndex!;
 			material.uniforms.hoveredFaceId.value = faceIndex;
+			const arr: number[] = material.uniforms.previousHoveredFaceIds.value;
+			if (arr[0] !== faceIndex) {
+				arr.unshift(faceIndex);
+				arr.pop();
+			}
+
+			// material.uniforms.previousHoveredFaceIds.value = arr;
+			console.log(material.uniforms.previousHoveredFaceIds.value);
 			// console.log(faceIndex)
 		} else {
 			material.uniforms.hoveredFaceId.value = -1;

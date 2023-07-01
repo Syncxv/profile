@@ -1,6 +1,10 @@
+#define PREV_FACE_IDS_MAX 10
+
 uniform float edgeThreshold;
 uniform float hoveredFaceId;
+uniform float previousHoveredFaceIds[PREV_FACE_IDS_MAX];
 uniform vec2 divisions;
+uniform float time;
 
 varying vec3 finalPos;
 varying vec2 vUv;
@@ -28,8 +32,18 @@ void main() {
   //     faceColor = vec3(1.0, 0.0, 0.0);
   //   }
 
-  if (faceIndex == hoveredFaceId) {
-    faceColor = faceColor * 1.5;
+  // if (faceIndex == hoveredFaceId) {
+  //   faceColor = faceColor * 1.5;
+  // }
+
+  float opacityFactor = 0.02;
+
+  for (int i = 0; i < PREV_FACE_IDS_MAX; ++i) {
+    if (previousHoveredFaceIds[i] == faceIndex) {
+      float relI = float(i);
+      float opacityAdjustment = (float(PREV_FACE_IDS_MAX - i) * opacityFactor);
+      faceColor += (1.0 - faceColor) * opacityAdjustment;
+    }
   }
 
   //   faceColor = vec3(fract(float(faceId) / 4.0), 0.0, 0.0);
