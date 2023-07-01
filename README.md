@@ -1,3 +1,3 @@
 WIP
 
-https://aria-profile.netlify.app/
+https://profile.daveyy.net
